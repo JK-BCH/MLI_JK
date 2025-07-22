@@ -1,4 +1,7 @@
-  % 파일 선택 대화 상자 열기
+%% Parameters
+pxsize = 0.547;  % um/px
+
+%% 파일 선택 대화 상자 열기
 [filenames, pathname] = uigetfile({'*.png;*.jpg;*.jpeg;*.tif;*.bmp', 'Image Files (*.png, *.jpg, *.jpeg, *.tif, *.bmp)'}, 'Select Image Files', 'MultiSelect', 'on');
 if isequal(filenames, 0)
     disp('File selection canceled');
@@ -12,10 +15,12 @@ end
 allLengths = [];
 allAreas = [];
 
+disp("Image, Length_mean, Length_std, Area_mean, Area_std");
+
 % 각 파일에 대해 처리
 for i = 1:length(filenames)
     filename = filenames{i};
-    [validLengths, validAreas] = MLI_main_07092024(filename, pathname);
+    [validLengths, validAreas] = MLI_main_07092024(filename, pathname, pxsize);
     
       % 결과를 누적
     if isrow(validLengths)
@@ -38,10 +43,10 @@ meanArea = mean(allAreas);
 stdArea = std(allAreas);
 
 
-resultStr = sprintf('%.2f,%.2f,%.2f,%.2f',mean_length, std_length, meanArea, stdArea);
+resultStr = sprintf('%s, %.2f,%.2f,%.2f,%.2f',"Total",mean_length, std_length, meanArea, stdArea);
 disp(resultStr);
 
-% 각 파일의 결과를 출력 (옵션)
+%% 각 파일의 결과를 출력 (옵션)
 for i = 1:length(filenames)
     filename = filenames{i};
     

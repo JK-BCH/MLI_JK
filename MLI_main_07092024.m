@@ -1,8 +1,8 @@
-function [validLangths, validAreas] = MLI_main_07092024(filename, pathname)
+function [validLangths, validAreas] = MLI_main_07092024(filename, pathname, pxsize)
     
     
     %% parameters
-    pxsize = 0.547;  % um/px
+    % pxsize = 0.547;  % um/px
     pixelArea = pxsize^2; % µm²
     Outdir = './output/';
     % 출력 디렉토리가 존재하는지 확인하고 없으면 생성
